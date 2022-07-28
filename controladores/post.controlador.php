@@ -95,7 +95,7 @@ class PostControlador {
                 $respuesta = null;
 
                 $retornar = new PostControlador();
-                $retornar->fncRespuesta($respuesta, "postIngreso", "Wrong password");
+                $retornar->fncRespuesta($respuesta, "postIngreso", "Contrasena equivocada");
 
             }
 
@@ -104,7 +104,7 @@ class PostControlador {
             $respuesta = null;
 
             $retornar = new PostControlador();
-            $retornar->fncRespuesta($respuesta, "postIngreso", "Wrong email");
+            $retornar->fncRespuesta($respuesta, "postIngreso", "Email equivocado");
 
         }
 
@@ -124,8 +124,8 @@ class PostControlador {
             }
 
             $json = array(
-                'status' => 200,
-                'results' => $respuesta
+                'estado' => 200,
+                'resultados' => $respuesta
             );
 
         } else {
@@ -133,22 +133,22 @@ class PostControlador {
             if ( $error != null ) {
 
                 $json = array(
-                    'status' => 404,
-                    'results' => $error
+                    'estado' => 404,
+                    'resultados' => $error
                 );
 
             } else {
 
                 $json = array(
-                    'status' => 404,
-                    'results' => "Not Found",
-                    'method' => $metodo
+                    'estado' => 404,
+                    'resultados' => "No encontrado",
+                    'metodo' => $metodo
                 );
             }
 
         }
 
-        echo json_encode($json, http_response_code($json["status"]));
+        echo json_encode($json, http_response_code($json["estado"]));
 
         return;
 

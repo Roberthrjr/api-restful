@@ -8,11 +8,11 @@ $rutasArray = array_filter($rutasArray);
 if ( count( $rutasArray ) == 0 ) {
 
     $json = array(
-        'status' => 404,
-        'result' => "Not found"
+        'estado' => 404,
+        'resultado' => "No encontrado"
     );
     
-    echo json_encode($json, http_response_code($json["status"]));
+    echo json_encode($json, http_response_code($json["estado"]));
 
     return;
 
@@ -165,10 +165,18 @@ if ( count( $rutasArray ) == 0 ) {
 
             }
             
-            $respuesta = new GetControlador();
+            if ( explode("?", $rutasArray[1])[0] == "relations" && isset($_GET["rel"]) && isset($_GET["type"]) ) {
+                
+                $respuesta = new GetControlador();
+                $respuesta -> getDatosBusquedaRelacion($_GET["rel"], $_GET["type"],$_GET["linkTo"], $_GET["search"], $orderBy, $orderMode, $startAt, $endAt);
 
-            $respuesta -> getDatosBusqueda(explode("?", $rutasArray[1])[0], $_GET["linkTo"], $_GET["search"], $orderBy, $orderMode, $startAt, $endAt);
-        
+            } else {
+
+                $respuesta = new GetControlador();
+                $respuesta -> getDatosBusqueda(explode("?", $rutasArray[1])[0], $_GET["linkTo"], $_GET["search"], $orderBy, $orderMode, $startAt, $endAt);
+    
+            }
+            
         // PETICIONES GET SIN FILTRO
         } else {
 
@@ -278,11 +286,11 @@ if ( count( $rutasArray ) == 0 ) {
                         } else {
 
                             $json = array(
-                                'status' => 400,
-                                'results' => "Error: The token has expired"
+                                'estado' => 400,
+                                'resultado' => "Error: El token ha expirado"
                             );
             
-                            echo json_encode($json, http_response_code($json["status"]));
+                            echo json_encode($json, http_response_code($json["estado"]));
             
                             return; 
 
@@ -291,11 +299,11 @@ if ( count( $rutasArray ) == 0 ) {
                     } else {
 
                         $json = array(
-                            'status' => 400,
-                            'results' => "Error: The user is not authorize"
+                            'estado' => 400,
+                            'resultado' => "Error: El usuario no esta autorizado"
                         );
         
-                        echo json_encode($json, http_response_code($json["status"]));
+                        echo json_encode($json, http_response_code($json["estado"]));
         
                         return; 
 
@@ -304,11 +312,11 @@ if ( count( $rutasArray ) == 0 ) {
                 } else {
 
                     $json = array(
-                        'status' => 400,
-                        'results' => "Error: Authorization required"
+                        'estado' => 400,
+                        'resultado' => "Error: Autorizacion requerida"
                     );
     
-                    echo json_encode($json, http_response_code($json["status"]));
+                    echo json_encode($json, http_response_code($json["estado"]));
     
                     return;    
 
@@ -317,11 +325,11 @@ if ( count( $rutasArray ) == 0 ) {
             } else {
 
                 $json = array(
-                    'status' => 400,
-                    'results' => "Error: Fields in the form do not match the database"
+                    'estado' => 400,
+                    'resultado' => "Error: Los campos en el formulario no se encuentran en la base de datos"
                 );
 
-                echo json_encode($json, http_response_code($json["status"]));
+                echo json_encode($json, http_response_code($json["estado"]));
 
                 return;
 
@@ -403,11 +411,11 @@ if ( count( $rutasArray ) == 0 ) {
                             } else {
                                 
                                 $json = array(
-                                    'status' => 400,
-                                    'result' => "Error: The token has expired"
+                                    'estado' => 400,
+                                    'resultado' => "Error: El token ha expirado"
                                 );
                                 
-                                echo json_encode($json, http_response_code($json["status"]));
+                                echo json_encode($json, http_response_code($json["estado"]));
                                 
                                 return;
 
@@ -416,11 +424,11 @@ if ( count( $rutasArray ) == 0 ) {
                         } else {
                             
                             $json = array(
-                                'status' => 400,
-                                'result' => "Error: The user is not authorized"
+                                'estado' => 400,
+                                'resultado' => "Error: El usuario no esta autorizado"
                             );
                             
-                            echo json_encode($json, http_response_code($json["status"]));
+                            echo json_encode($json, http_response_code($json["estado"]));
                             
                             return;
 
@@ -429,11 +437,11 @@ if ( count( $rutasArray ) == 0 ) {
                     } else {
 
                         $json = array(
-                            'status' => 400,
-                            'result' => "Error: Authorization required"
+                            'estado' => 400,
+                            'resultado' => "Error: Autorizacion requerida"
                         );
                         
-                        echo json_encode($json, http_response_code($json["status"]));
+                        echo json_encode($json, http_response_code($json["estado"]));
                         
                         return;
 
@@ -442,11 +450,11 @@ if ( count( $rutasArray ) == 0 ) {
                 } else {
 
                     $json = array(
-                        'status' => 400,
-                        'result' => "Error: Fields in the form do not match the database"
+                        'estado' => 400,
+                        'resultado' => "Error: Los campos en el formulario no se encuentran en la base de datos"
                     );
                     
-                    echo json_encode($json, http_response_code($json["status"]));
+                    echo json_encode($json, http_response_code($json["estado"]));
                     
                     return;
 
@@ -454,11 +462,11 @@ if ( count( $rutasArray ) == 0 ) {
 
             } else {
                 $json = array(
-                    'status' => 400,
-                    'result' => "Error: The id is not found in the database"
+                    'estado' => 400,
+                    'resultado' => "Error: El id no se encuentra en la base de datos"
                 );
                 
-                echo json_encode($json, http_response_code($json["status"]));
+                echo json_encode($json, http_response_code($json["estado"]));
                 
                 return;
 
@@ -506,11 +514,11 @@ if ( count( $rutasArray ) == 0 ) {
                         } else {
                             
                             $json = array(
-                                'status' => 400,
-                                'result' => "Error: The token has expired"
+                                'estado' => 400,
+                                'resultado' => "Error: El token ha expirado"
                             );
                             
-                            echo json_encode($json, http_response_code($json["status"]));
+                            echo json_encode($json, http_response_code($json["estado"]));
                             return;
 
                         }
@@ -518,11 +526,11 @@ if ( count( $rutasArray ) == 0 ) {
                     } else {
 
                         $json = array(
-                            'status' => 400,
-                            'result' => "Error: The user is not authorized"
+                            'estado' => 400,
+                            'resultado' => "Error: El usuario no esta autorizado"
                         );
                         
-                        echo json_encode($json, http_response_code($json["status"]));
+                        echo json_encode($json, http_response_code($json["estado"]));
                         return;
 
                     }
@@ -530,11 +538,11 @@ if ( count( $rutasArray ) == 0 ) {
                 } else {
                     
                     $json = array(
-                        'status' => 400,
-                        'result' => "Error: Authorization required"
+                        'estado' => 400,
+                        'resultado' => "Error: Autorizacion requerida"
                     );
                     
-                    echo json_encode($json, http_response_code($json["status"]));
+                    echo json_encode($json, http_response_code($json["estado"]));
                     return;
 
                 }
@@ -542,11 +550,11 @@ if ( count( $rutasArray ) == 0 ) {
             } else {
 
                 $json = array(
-                    'status' => 400,
-                    'result' => "Error: The id is not found in the database"
+                    'estado' => 400,
+                    'resultado' => "Error: El id no se encuentra en la base de datos"
                 );
                 
-                echo json_encode($json, http_response_code($json["status"]));
+                echo json_encode($json, http_response_code($json["estado"]));
                 return;
 
             }

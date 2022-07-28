@@ -52,28 +52,39 @@ class GetControlador {
 
     }
 
+    // PETICION GET PARA BUSQUEDAS ENTRE TABLAS RELACIONADAS
+    public function getDatosBusquedaRelacion($rel, $type, $linkTo, $search, $orderBy, $orderMode, $startAt, $endAt) {
+
+        $respuesta = GetModelo::getDatosBusquedaRelacion($rel, $type, $linkTo, $search, $orderBy, $orderMode, $startAt, $endAt);
+
+        $retornar = new GetControlador();
+        $retornar ->fncRespuesta($respuesta, "getDatosBusquedaRelacion");
+
+    }
+
+
     // RESPUESTAS DEL CONTROLADOR
     public function fncRespuesta($respuesta, $metodo) {
 
         if ( !empty($respuesta) ) {
 
             $json = array(
-                'status' => 200,
+                'estado' => 200,
                 'total' => count($respuesta),
-                'results' => $respuesta
+                'resultados' => $respuesta
             );
 
         } else {
 
             $json = array(
-                'status' => 404,
-                'results' => "Not Found",
-                'method' => $metodo
+                'estado' => 404,
+                'resultados' => "No encontrado",
+                'metodo' => $metodo
             );
 
         }
 
-        echo json_encode($json, http_response_code($json["status"]));
+        echo json_encode($json, http_response_code($json["estado"]));
 
         return;
 

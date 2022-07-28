@@ -18,21 +18,21 @@ class DeleteControlador {
 		if(!empty($respuesta)){
 
 			$json = array(
-				'status' => 200,
-				"results" => $respuesta
+				'estado' => 200,
+				"resultados" => $respuesta
 			);
 
 		}else{
 
 			$json = array(
-				'status' => 404,
-				"results" => "Not Found",
-				'method' => $metodo
+				'estado' => 404,
+				"resultados" => "No encontrado",
+				'metodo' => $metodo
 			);
 
 		}
 
-		echo json_encode($json, http_response_code($json["status"]));
+		echo json_encode($json, http_response_code($json["estado"]));
 
 		return;
 
